@@ -62,7 +62,7 @@ android {
         def checkTask = task "buildCheck${variantName}" {
             doLast {
                 if (variant.buildType.name == 'release' && isDevBuild()) {
-                    throw new GradleException("The release version can not enable dev")
+                    throw new GradleException("release version disable dev build")
                 }
             }
         }
