@@ -11,12 +11,15 @@ android {
     defaultConfig {
         applicationId "cn.dong.cisample"
         if (dev) {
+            // To avoid using legacy multidex when building from the command line,
+            // set minSdkVersion to 21 or higher. When using Android Studio 2.3 or higher,
+            // the build automatically avoids legacy multidex when deploying to a device running
             minSdkVersion 21
         } else {
             minSdkVersion MIN_SDK_VERSION as int
         }
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode 1
+        versionCode generateVersionCode()
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -79,4 +82,23 @@ dependencies {
     implementation 'com.google.guava:guava:19.0'
     implementation 'org.scala-lang:scala-library:2.11.7'
     implementation "com.growingio.android:vds-android-agent:${growingio_version}@aar"
+}
+
+/**
+ * 用 git commit 的数量作为应用 VersionCode，使 VersionCode 实现自增长，并且与代码版本保持一致性
+ */
+def generateVersionCode() {
+    return gitCommitCount()
+}
+
+def gitCommitCount() {
+    try {
+        def count = "git rev-list --count HEAD".execute(null, project.rootDir).text.trim()
+        if (count == null) {
+            throw new GradleException("can't get git rev, you should add git to system path")
+        }
+        return count.toInteger()
+    } catch (Exception ignored) {
+        throw new GradleException("can't get git rev, you should add git to system path")
+    }
 }
