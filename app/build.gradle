@@ -1,8 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
-boolean dev = config_dev.toBoolean()
-if (!dev) {
+def isDevBuild() {
+    return project.hasProperty('devBuild')
+}
+
+if (!isDevBuild()) {
     apply plugin: 'com.growingio.android'
 }
 
@@ -10,7 +13,7 @@ android {
     compileSdkVersion COMPILE_SDK_VERSION as int
     defaultConfig {
         applicationId "cn.dong.cisample"
-        if (dev) {
+        if (isDevBuild()) {
             // To avoid using legacy multidex when building from the command line,
             // set minSdkVersion to 21 or higher. When using Android Studio 2.3 or higher,
             // the build automatically avoids legacy multidex when deploying to a device running
@@ -19,7 +22,7 @@ android {
             minSdkVersion MIN_SDK_VERSION as int
         }
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode generateVersionCode()
+        versionCode getVersionCode()
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -37,7 +40,7 @@ android {
             signingConfig signingConfigs.release
         }
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -58,7 +61,7 @@ android {
         def variantName = variant.name.capitalize()
         def checkTask = task "buildCheck${variantName}" {
             doLast {
-                if (variant.buildType.name == 'release' && dev) {
+                if (variant.buildType.name == 'release' && isDevBuild()) {
                     throw new GradleException("The release version can not enable dev")
                 }
             }
@@ -87,8 +90,8 @@ dependencies {
 /**
  * 用 git commit 的数量作为应用 VersionCode，使 VersionCode 实现自增长，并且与代码版本保持一致性
  */
-def generateVersionCode() {
-    return gitCommitCount()
+def getVersionCode() {
+    return isDevBuild() ? 1 : gitCommitCount()
 }
 
 def gitCommitCount() {
