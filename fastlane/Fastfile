@@ -18,6 +18,7 @@ default_platform :android
 platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    git_pull
   end
 
   desc "Runs all the tests"
@@ -25,18 +26,16 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
+  desc "Submit a new Beta Build to fir"
   lane :beta do
-    gradle(task: "assembleRelease")
-
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
+    gradle(task: "assembleStagingRelease")
+    fir
   end
 
-  desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "assembleRelease")
-    supply
+  private_lane :fir do
+    changelog_from_git_commits
+    token = "35ea039d6f4fdd5591dc6eb8e56f613b"
+    sh "fir publish " + lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] + " -T " + token
   end
 
   # You can define as many lanes as you want

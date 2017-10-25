@@ -48,3 +48,6 @@ google-services.json
 
 # MacOS
 .DS_Store
+
+# fastlane
+fastlane/report.xml
