@@ -33,8 +33,8 @@ platform :android do
   end
 
   private_lane :fir do
-    changelog_from_git_commits
-    token = "35ea039d6f4fdd5591dc6eb8e56f613b"
+    # changelog_from_git_commits
+    token = ENV["FIR_TOKEN"]
     sh "fir publish " + lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] + " -T " + token
   end
 
