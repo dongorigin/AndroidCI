@@ -25,7 +25,7 @@ GEM
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     fastimage (2.1.0)
-    fastlane (2.62.1)
+    fastlane (2.63.0)
       CFPropertyList (>= 2.3, < 3.0.0)
       addressable (>= 2.3, < 3.0.0)
       babosa (>= 1.0.2, < 2.0.0)
@@ -130,7 +130,7 @@ GEM
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     thor (0.20.0)
-    tty-screen (0.5.0)
+    tty-screen (0.5.1)
     uber (0.1.0)
     unf (0.1.4)
       unf_ext
@@ -155,4 +155,4 @@ DEPENDENCIES
   fir-cli
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
