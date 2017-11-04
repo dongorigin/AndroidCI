@@ -17,7 +17,7 @@ default_platform :android
 
 platform :android do
   before_all do
-    welcome()
+    welcome
     git_pull
   end
 
@@ -29,13 +29,7 @@ platform :android do
   desc "Submit a new Beta Build to fir"
   lane :beta do
     gradle(task: "assembleStagingRelease")
-    fir
-  end
-
-  private_lane :fir do
-    # changelog_from_git_commits
-    token = ENV["FIR_TOKEN"]
-    sh "fir publish " + lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] + " -T " + token
+    fir(apk_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH])
   end
 
   # You can define as many lanes as you want
@@ -56,7 +50,7 @@ platform :android do
   end
 end
 
-def welcome() 
+def welcome
   puts '
       ___              __           _     __
      /   |  ____  ____/ /________  (_)___/ /
