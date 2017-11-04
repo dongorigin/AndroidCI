@@ -29,7 +29,10 @@ platform :android do
   desc "Submit a new Beta Build to fir"
   lane :beta do
     gradle(task: "assembleStagingRelease")
-    fir(apk_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH])
+    fir(
+      apk_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
+      changelog: "test"
+      )
   end
 
   # You can define as many lanes as you want

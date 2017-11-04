@@ -6,7 +6,9 @@ module Fastlane
 
     class FirAction < Action
       def self.run(params)
-        sh "fir publish #{params[:apk_path]} -T #{params[:api_token]}"
+        script = "fir publish #{params[:apk_path]} -T #{params[:api_token]}"
+        script += " -c #{params[:changelog]}" unless params[:changelog].empty?
+        sh script
 
         # Actions.lane_context[SharedValues::FIR_DOWNLOAD_LINK] = ""
       end
@@ -36,7 +38,11 @@ module Fastlane
                                        is_string: true,
                                        verify_block: proc do |value|
                                         UI.user_error!("Couldn't find file at path '#{value}'") unless File.exist?(value)
-                                       end)
+                                       end),
+          FastlaneCore::ConfigItem.new(key: :changelog,
+                                       description: "Release ChangeLog, support string or file path",
+                                       is_string: true,
+                                       default_value: "")
         ]
       end
 
