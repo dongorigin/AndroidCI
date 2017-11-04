@@ -29,19 +29,17 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :api_token,
                                        env_name: "FL_FIR_API_TOKEN",
                                        description: "API Token for fir.im",
-                                       is_string: true,
+                                       sensitive: true,
                                        verify_block: proc do |value|
                                           UI.user_error!("No API token for FirAction given, pass using `api_token: 'token'`") unless (value and not value.empty?)
                                        end),
           FastlaneCore::ConfigItem.new(key: :apk_path,
                                        description: "Path to your APK file",
-                                       is_string: true,
                                        verify_block: proc do |value|
                                         UI.user_error!("Couldn't find file at path '#{value}'") unless File.exist?(value)
                                        end),
           FastlaneCore::ConfigItem.new(key: :changelog,
                                        description: "Release ChangeLog, support string or file path",
-                                       is_string: true,
                                        default_value: "")
         ]
       end
