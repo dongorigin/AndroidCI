@@ -49,7 +49,7 @@ module Fastlane
 
       def self.output
         [
-          ['FIR_DOWNLOAD_LINK', 'The newly generated download link for this build']
+          # ['FIR_DOWNLOAD_LINK', 'The newly generated download link for this build']
         ]
       end
       
