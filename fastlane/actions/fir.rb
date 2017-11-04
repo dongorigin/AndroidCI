@@ -34,11 +34,14 @@ module Fastlane
                                           UI.user_error!("No API token for FirAction given, pass using `api_token: 'token'`") unless (value and not value.empty?)
                                        end),
           FastlaneCore::ConfigItem.new(key: :apk_path,
-                                       description: "Path to your APK file",
+                                       env_name: "FL_FIR_APK_PATH",
+                                       description: "Path to your APK file. Optional if you use the gradle action",
+                                       default_value: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
                                        verify_block: proc do |value|
                                         UI.user_error!("Couldn't find file at path '#{value}'") unless File.exist?(value)
                                        end),
           FastlaneCore::ConfigItem.new(key: :changelog,
+                                       env_name: "FL_FIR_CHANGELOG",
                                        description: "Release ChangeLog, support string or file path",
                                        default_value: "")
         ]
