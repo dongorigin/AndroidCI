@@ -29,7 +29,8 @@ platform :android do
   desc "Submit a new Beta Build to fir"
   lane :beta do
     gradle(task: "assembleStagingRelease")
-    fir(changelog: "test")
+    changelog = read_changelog
+    fir(changelog: changelog)
   end
 
   # You can define as many lanes as you want
