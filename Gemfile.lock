@@ -58,6 +58,8 @@ GEM
       xcodeproj (>= 1.5.0, < 2.0.0)
       xcpretty (>= 0.2.4, < 1.0.0)
       xcpretty-travis-formatter (>= 0.0.3)
+    fastlane-plugin-fir (0.1.0)
+      fir-cli (~> 1.6)
     fir-cli (1.6.3)
       CFPropertyList (~> 2.3)
       rest-client (~> 2.0)
@@ -152,7 +154,7 @@ PLATFORMS
 
 DEPENDENCIES
   fastlane
-  fir-cli
+  fastlane-plugin-fir
 
 BUNDLED WITH
    1.16.0
