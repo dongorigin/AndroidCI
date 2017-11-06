@@ -50,4 +50,5 @@ google-services.json
 .DS_Store
 
 # fastlane
+fastlane/README.md
 fastlane/report.xml
