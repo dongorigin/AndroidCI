@@ -1,5 +1,5 @@
 # AndroidCI
-Android continuous integration sample, use fastlane, hubot.
+Android continuous integration sample, use fastlane connect tools together.
 
 # [fastlane](https://github.com/fastlane/fastlane)
 The easiest way to automate building and releasing your iOS and Android apps. fastlane can connect build tools together, such as gradle, fir.
