@@ -33,6 +33,10 @@ platform :android do
     fir(changelog: changelog)
   end
 
+  lane :stamp_changelog do
+    stamp_changelog
+  end
+
   # You can define as many lanes as you want
 
   after_all do |lane|
